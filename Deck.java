@@ -34,28 +34,44 @@ class Deck {
     int count() {
         return inDeck.size();
     }
+    
+    boolean check(Card templateCard){
+        int templateRank = templateCard.rankValue;
+        int templateSuit = templateCard.suitValue;
+        boolean cardIn = false;
+        for (Card currentCard: inDeck){
+            if (templateRank == currentCard.rankValue && templateSuit == currentCard.suitValue){
+                cardIn = true;
+            }
+        }
+        return cardIn;
+    }
+    
+    boolean checkSuit(int suitCheck){
+        boolean cardIn = false;
+        for (Card currentCard: inDeck){
+            if (suitCheck == currentCard.suitValue){
+                cardIn = true;
+            }
+        }
+        return cardIn;
+    }
+    boolean checkRank(int rankCheck){
+        boolean cardIn = false;
+        for (Card currentCard: inDeck){
+            if (rankCheck == currentCard.rankValue){
+                cardIn = true;
+            }
+        }
+        return cardIn;
+    }
 
     void discard() {
-        inDeck.remove(1);
+        inDeck.remove(0);
     }
 
     void discard(int discardPos){
         inDeck.remove(discardPos);
-    }
-
-    boolean search(int suit, int rank) {
-        byte isTrueVar = 0;
-        for (int i = 0; i <= inDeck.size(); i ++){
-            if (inDeck.get(i).rankValue == rank && inDeck.get(i).suitValue == suit) {
-                isTrueVar = 1;
-            }
-        }
-        if (isTrueVar == 1){
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 
     void shuffle() {

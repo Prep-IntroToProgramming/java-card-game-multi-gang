@@ -42,12 +42,12 @@ public class TestCard {
         Deck d1 = new Deck();
         //d1.printComponents();
 
-        System.out.println(d1.draw().cardName);
+        //System.out.println(d1.draw().cardName);
         //System.out.println(d1.draw().cardName);
 
         //d1.resetDeck();
         //d1.shuffle();
-        
+        /*
         Deck d2 = d1.cut();
         d2.printComponents();
         System.out.println("-------Here's the new guys-------");
@@ -55,7 +55,11 @@ public class TestCard {
         
         d1.resetDeck();
         System.out.println(d1.drawRand().cardName);
+        */
         
+        System.out.println(d1.check(c1));
+        System.out.println(d1.checkSuit(4));
+        System.out.println(d1.checkRank(9));
         
 
     }  
