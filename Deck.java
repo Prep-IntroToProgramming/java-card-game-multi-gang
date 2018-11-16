@@ -89,7 +89,7 @@ class Deck {
                 ;
             }
             else {
-                System.out.println(i);
+                //System.out.println(i);
                 splitDeck.add(draw(i));
             }
         }

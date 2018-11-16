@@ -61,6 +61,6 @@ public class TestCard {
         System.out.println(d1.checkSuit(4));
         System.out.println(d1.checkRank(9));
         
-
+        
     }  
 }
