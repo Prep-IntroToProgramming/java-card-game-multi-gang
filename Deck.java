@@ -47,7 +47,7 @@ class Deck {
     int count() {
         return inDeck.size();
     }
-
+    
     boolean check(Card templateCard){
         int templateRank = templateCard.rankValue;
         int templateSuit = templateCard.suitValue;
@@ -59,7 +59,7 @@ class Deck {
         }
         return cardIn;
     }
-
+    
     boolean checkSuit(int suitCheck){
         boolean cardIn = false;
         for (Card currentCard: inDeck){
@@ -69,7 +69,7 @@ class Deck {
         }
         return cardIn;
     }
-
+    
     boolean checkRank(int rankCheck){
         boolean cardIn = false;
         for (Card currentCard: inDeck){
