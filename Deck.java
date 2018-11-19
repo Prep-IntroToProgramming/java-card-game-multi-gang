@@ -2,6 +2,19 @@ import java.util.*;
 
 class Deck {
     ArrayList<Card> inDeck = new ArrayList();
+    
+    Deck() {
+        for (byte i = 1; i < 5; i += 1) {
+            for (byte j = 1; j < 14; j += 1) {
+                inDeck.add(new Card(j, i));
+            }
+        }
+    }
+
+    Deck(boolean buildDeck){
+
+    }
+    
     void resetDeck() {
         inDeck.clear();
         for (byte i = 1; i < 5; i += 1) {
@@ -85,33 +98,15 @@ class Deck {
 
     Deck cut() {
         Deck splitDeck = new Deck(false);
-        for (int i = 1; i <= inDeck.size(); i += 1) {
-            if (i >= inDeck.size()) {
-                ;
-            }
-            else {
-                //System.out.println(i);
+        for (int i = 0; i < inDeck.size(); i++) {
                 splitDeck.add(draw(i));
-            }
         }
         return splitDeck;
     }
 
     void printComponents() {
-        for (int k = 1; k != inDeck.size(); k++){
+        for (int k = 0; k < inDeck.size(); k++){
             System.out.println(inDeck.get(k).cardName);
         }
-    }
-
-    Deck() {
-        for (byte i = 1; i < 5; i += 1) {
-            for (byte j = 1; j < 14; j += 1) {
-                inDeck.add(new Card(j, i));
-            }
-        }
-    }
-
-    Deck(boolean buildDeck){
-
     }
 }
