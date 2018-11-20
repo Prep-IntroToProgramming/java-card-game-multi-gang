@@ -18,6 +18,9 @@ class Deck {
                     inDeck.add(new Card(j, i));
                 }
             }
+            shuffle();
+        } else {
+            //Creates empty deck.
         }
     }
     //Reverts it to a normal 52 card deck
