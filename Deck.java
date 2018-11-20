@@ -2,7 +2,7 @@ import java.util.*;
 
 class Deck {
     ArrayList<Card> inDeck = new ArrayList();
-    
+
     Deck() {
         for (byte i = 1; i < 5; i += 1) {
             for (byte j = 1; j < 14; j += 1) {
@@ -12,9 +12,17 @@ class Deck {
     }
 
     Deck(boolean buildDeck){
-
+        if (buildDeck == true) {
+            for (byte i = 1; i < 5; i += 1) {
+                for (byte j = 1; j < 14; j += 1) {
+                    inDeck.add(new Card(j, i));
+                }
+            }
+        } else {
+            // Creates an empty deck.
+        }
     }
-    
+
     void resetDeck() {
         inDeck.clear();
         for (byte i = 1; i < 5; i += 1) {
@@ -47,7 +55,7 @@ class Deck {
     int count() {
         return inDeck.size();
     }
-    
+
     boolean check(Card templateCard){
         int templateRank = templateCard.rankValue;
         int templateSuit = templateCard.suitValue;
@@ -59,7 +67,7 @@ class Deck {
         }
         return cardIn;
     }
-    
+
     boolean checkSuit(int suitCheck){
         boolean cardIn = false;
         for (Card currentCard: inDeck){
@@ -69,7 +77,7 @@ class Deck {
         }
         return cardIn;
     }
-    
+
     boolean checkRank(int rankCheck){
         boolean cardIn = false;
         for (Card currentCard: inDeck){
@@ -99,7 +107,7 @@ class Deck {
     Deck cut() {
         Deck splitDeck = new Deck(false);
         for (int i = 0; i < inDeck.size(); i++) {
-                splitDeck.add(draw(i));
+            splitDeck.add(draw(i));
         }
         return splitDeck;
     }
