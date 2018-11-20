@@ -38,5 +38,19 @@ public class TestCard {
         System.out.println(d1.checkSuit(Card.DIAMONDS));
         System.out.println(d1.checkRank(Card.ACE));
         
+        d1.resetDeck();
+        
+        //Tests cut deck and shuffle
+        d1.shuffle();
+        Deck d2 = d1.cut();
+        System.out.println("Here's Deck 1");
+        d1.printComponents();
+        System.out.println("Here's Deck 2");
+        d2.printComponents();
+        
+        System.out.println(d1.count());
+        System.out.println(d2.count());
+       
+        
     }  
 }
