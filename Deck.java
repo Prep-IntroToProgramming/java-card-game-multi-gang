@@ -67,6 +67,16 @@ class Deck {
         }
         return cardIn;
     }
+    //Same as previous but uses ints as opposed to a card object
+    boolean check(int rank, int suit){
+        boolean cardIn = false;
+        for (Card currentCard: inDeck){
+            if (rank == currentCard.rankValue && suit == currentCard.suitValue){
+                cardIn = true;
+            }
+        }
+        return cardIn;
+    }
     //Checks for a suit in a deck
     boolean checkSuit(int suitCheck){
         boolean cardIn = false;
