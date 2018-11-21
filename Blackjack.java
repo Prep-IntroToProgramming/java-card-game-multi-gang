@@ -73,8 +73,6 @@ public class Blackjack {
         }
         return value;
     }
-    //Converts any aces in the hand from 11s to 1s
-
     //Draws a card to the specified deck
     void hit(Deck currentDeck){
         currentDeck.add(mainDeck.draw());
