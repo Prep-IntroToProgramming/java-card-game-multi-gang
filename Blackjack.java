@@ -49,6 +49,36 @@ public class Blackjack {
             return false;
         }
     }
+    //Calculates the value of the user's hand
+    int value(Deck currentDeck){
+        int value = 0;
+        int aces = 0;
+        for (Card currentCard: currentDeck.inDeck){
+            //Allows to calculate how much the aces should be at the end
+            if (currentCard.blackjackValue == 1){
+                aces++;
+            }
+            else { 
+                value += currentCard.blackjackValue;
+            }
+        }
+        //For every ace decides if it should be 11 or 1 and increases value by that
+        for (int i = 0; i < aces; i++){
+            if (value < 11){
+                value += 11;
+            }
+            else{
+                value++;
+            }
+        }
+        return value;
+    }
+    //Converts any aces in the hand from 11s to 1s
+
+    //Draws a card to the specified deck
+    void hit(Deck currentDeck){
+        currentDeck.add(mainDeck.draw());
+    }
     //For debugging/testing
     void printHands(){
         System.out.println("The dealer has:");
