@@ -131,4 +131,11 @@ class Deck {
             System.out.println(inDeck.get(k).cardName);
         }
     }
+    //Combines two decks, deleting the old one
+    void merge(Deck newDeck){
+        for (Card currentCard: newDeck.inDeck){
+            inDeck.add(currentCard);
+        }
+        newDeck.inDeck.clear();
+    }
 }

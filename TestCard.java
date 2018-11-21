@@ -50,6 +50,11 @@ public class TestCard {
         
         System.out.println(d1.count());
         System.out.println(d2.count());
+        
+        //Tests merge
+        d1.merge(d2);
+        System.out.println(d1.count());
+        System.out.println(d2.count());
        
         
     }  
