@@ -203,5 +203,17 @@ public class Card {
             //return cardName;
         }
     }
+    
+    int blackjackValue(){
+        if (suitValue >= 1 && suitValue <= 10){
+            return suitValue;
+        }
+        else if (suitValue >= 11){
+            return 10;
+        }
+        else{
+            return 0;
+        }
+    }
 }
 

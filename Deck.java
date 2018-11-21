@@ -100,6 +100,16 @@ class Deck {
         }
         return cardIn;
     }
+    //Looks through the deck for a card with value 10 (10, jack, queen, etc)
+    boolean check10(){
+        boolean cardIn = false;
+        for (Card currentCard: inDeck){
+            if (10 == currentCard.blackjackValue()){
+                cardIn = true;
+            }
+        }
+        return cardIn;
+    }
     //Removes the "top" card without returning it like draw() does
     void discard() {
         inDeck.remove(0);
@@ -115,6 +125,10 @@ class Deck {
     //Adds a card without taking it from somewhere else
     void add(Card newCard){
         inDeck.add(newCard);
+    }
+    //Empties the deck
+    void clear(){
+        inDeck.clear();
     }
     //splits the deck in half and returns the second deck
     Deck cut() {
