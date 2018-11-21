@@ -104,7 +104,7 @@ class Deck {
     boolean check10(){
         boolean cardIn = false;
         for (Card currentCard: inDeck){
-            if (10 == currentCard.blackjackValue()){
+            if (10 == currentCard.blackjackValue){
                 cardIn = true;
             }
         }

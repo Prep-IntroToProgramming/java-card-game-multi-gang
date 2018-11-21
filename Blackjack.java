@@ -11,23 +11,28 @@ public class Blackjack {
     }
     //Deals out the cards at the start of a game
     void deal(){
+        //empties player's hands
         playerHand.clear();
         dealerHand.clear();
+        //makes sure there's enough cards for the next game
         if (mainDeck.count() < 20){
             System.out.print("There aren't enough cards for a new game, so I'll reshuffle the deck");
             mainDeck.resetDeck();
             mainDeck.shuffle();
         }
+        //draws and adds the cards into the hands
         dealerHand.add(mainDeck.draw());
         dealerHand.add(mainDeck.draw());
         playerHand.add(mainDeck.draw());
         playerHand.add(mainDeck.draw());
+        //Looks to see if dealer has blackjack before player does
         if (checkBlackjack(dealerHand)){
             System.out.println("The dealer has:");
             dealerHand.printComponents();
             System.out.println("He got blackjack");
             lose();
         }
+        //Sees if player has blackjack
         else if (checkBlackjack(playerHand)){
             System.out.println("The player has:");
             dealerHand.printComponents();
