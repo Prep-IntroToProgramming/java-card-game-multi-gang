@@ -10,7 +10,7 @@ class Deck {
             }
         }
     }
-    //Allow to decide to make full or empty deck
+    //Allow to decide to make full or empty deck; if full it auto-shuffles it
     Deck(boolean buildDeck){
         if (buildDeck == true){
             for (byte i = 1; i < 5; i += 1) {
