@@ -92,11 +92,20 @@ public class Blackjack {
     void win(){
         System.out.println("You win!");
         gameOver = true;
+        money = bet*2 + money;
+        //informs the user what they won
+        if (gambling) {
+            System.out.print("You made " + bet + " dollars. You now have " + money + " dollars.");
+        }
     }
     //Ends game when user loses
     void lose(){
         System.out.println("You lose...");
         gameOver = true;
+        //informs the user what they lost
+        if (gambling) {
+            System.out.print("You lost " + bet + " dollars. You now have " + money + " dollars.");
+        }
     }
     //Asks the user if they want to bet and if so how much
     void askBet(){
@@ -129,6 +138,7 @@ public class Blackjack {
             gambling = true;
         }
         else {
+            gambling = false;
             System.out.print("Cool.");
         }
     }
