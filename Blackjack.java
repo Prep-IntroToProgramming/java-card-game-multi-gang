@@ -4,6 +4,10 @@ public class Blackjack {
 
     public static boolean gameOver = false;
 
+    public int money = 50;
+    public int bet = 0;
+    public boolean gambling = false;
+
     Deck mainDeck = new Deck(true);
     Deck playerHand = new Deck(false);
     Deck dealerHand = new Deck(false);
@@ -93,5 +97,39 @@ public class Blackjack {
     void lose(){
         System.out.println("You lose...");
         gameOver = true;
+    }
+    //Asks the user if they want to bet and if so how much
+    void askBet(){
+        //First determines if user wants to play with cash
+        System.out.println("Are we gonna bet anything?");
+        Scanner input = new Scanner(System.in);
+        String answer = input.nextLine();
+        if (answer.toLowerCase().contains("y") && money > 0){
+            System.out.println("Great! How much will you be betting?");
+            System.out.println("You currently have " + money + " credits");
+            Scanner betAmount = new Scanner(System.in);
+            while (!betAmount.hasNextInt()) { //Makes sure its a number
+                System.out.println("Please enter a valid number.");
+                betAmount.nextLine();
+            }
+            int currentBet = betAmount.nextInt();
+            //Makes sure they're not betting more than they have or
+            //a negative number
+            while (currentBet > money || currentBet <= 0){
+                System.out.println("You can't bet that. Please enter a real bet");
+                betAmount.nextLine();
+                while (!betAmount.hasNextInt()) { //Same as before
+                    System.out.println("Please enter a valid number.");
+                    betAmount.nextLine();
+                }
+                currentBet = betAmount.nextInt();
+            }
+            bet = currentBet; //Assigns the value to the public var
+            money -= bet; //Takes the bet out of your hand
+            gambling = true;
+        }
+        else {
+            System.out.print("Cool.");
+        }
     }
 }
