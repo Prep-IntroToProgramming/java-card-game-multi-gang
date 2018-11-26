@@ -34,16 +34,26 @@ class Deck {
     }
     //Gets the "top" card and removes it from the deck
     Card draw() {
-        //Assigns it to a variable so it can delete the card from the deck
-        Card topCard = inDeck.get(0);
-        inDeck.remove(0);
-        return topCard;
+        try {
+            //Assigns it to a variable so it can delete the card from the deck
+            Card topCard = inDeck.get(0);
+            inDeck.remove(0);
+            return topCard;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Sorry chief, no can do. The deck is empty.");
+            return null;
+        }
     }
     //Same as last one but allows to select the position of the card
     Card draw(int drawPos) {
-        Card topCard = inDeck.get(drawPos);
-        inDeck.remove(drawPos);
-        return topCard;
+        if (drawPos < inDeck.size() && drawPos >= 0) {
+            Card topCard = inDeck.get(drawPos);
+            inDeck.remove(drawPos);
+            return topCard;
+        } else {
+            System.out.println("Error: drawPos is outside deck size. You get nothing in return.");
+            return null;
+        }
     }
     //Returns and removes a card in a random position
     Card drawRand(){
@@ -112,11 +122,19 @@ class Deck {
     }
     //Removes the "top" card without returning it like draw() does
     void discard() {
-        inDeck.remove(0);
+        try {
+            inDeck.remove(0);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Sorry chief, no can do. The deck is empty.");
+        }
     }
     //Same but allowed to pick where the card is discarded from
     void discard(int discardPos){
-        inDeck.remove(discardPos);
+        if (discardPos < inDeck.size() && discardPos >= 0) {
+            inDeck.remove(discardPos);
+        } else {
+           System.out.println("Error: discardPos is outside deck size. You can't discard what ain't there."); 
+        }
     }
     //Shuffles the deck
     void shuffle() {

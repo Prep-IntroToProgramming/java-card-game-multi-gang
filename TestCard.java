@@ -57,5 +57,23 @@ public class TestCard {
         System.out.println(d2.count());
        
         
-    }  
+    } 
+    
+    static void hmm() {
+        Deck d3 = new Deck(false);
+        
+        d3.shuffle(); //fine
+        d3.printComponents(); //fine
+        d3.cut().printComponents(); //fine
+        d3.draw(); //fixed
+        d3.discard(); //fixed
+        
+        Deck d4 = new Deck(true);
+        
+        d4.count();
+        d4.draw(100);
+        d4.draw(-6);
+        d4.discard(100);
+        d4.discard(-6);
+    }
 }
