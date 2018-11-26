@@ -57,9 +57,10 @@ public class Card {
     public String cardName;
     public String rankString;
     public String suitString;
-    
+
     public int rankValue;
     public int suitValue;
+    public int blackjackValue;
 
     // Here you need to define the constructor. It takes an int for the 
     // starting rank and an int for the starting suit
@@ -200,7 +201,16 @@ public class Card {
             rankString = rankToString(rank);
             suitString = suitToString(suit);
             cardName = "The " + rankString + " of " + suitString;
-            //return cardName;
+            //attatches blackjack value to each card object
+            if (rankValue >= 1 && rankValue <= 10){
+                blackjackValue = rankValue;
+            }
+            else if (rankValue >= 11){
+                blackjackValue = 10;
+            }
+            else{
+                blackjackValue = 0;
+            }
         }
     }
 }

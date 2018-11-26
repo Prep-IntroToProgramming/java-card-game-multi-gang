@@ -10,7 +10,7 @@ class Deck {
             }
         }
     }
-    //Allow to decide to make full or empty deck
+    //Allow to decide to make full or empty deck; if full it auto-shuffles it
     Deck(boolean buildDeck){
         if (buildDeck == true){
             for (byte i = 1; i < 5; i += 1) {
@@ -34,16 +34,26 @@ class Deck {
     }
     //Gets the "top" card and removes it from the deck
     Card draw() {
-        //Assigns it to a variable so it can delete the card from the deck
-        Card topCard = inDeck.get(0);
-        inDeck.remove(0);
-        return topCard;
+        try {
+            //Assigns it to a variable so it can delete the card from the deck
+            Card topCard = inDeck.get(0);
+            inDeck.remove(0);
+            return topCard;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Sorry chief, no can do. The deck is empty.");
+            return null;
+        }
     }
     //Same as last one but allows to select the position of the card
     Card draw(int drawPos) {
-        Card topCard = inDeck.get(drawPos);
-        inDeck.remove(drawPos);
-        return topCard;
+        if (drawPos < inDeck.size() && drawPos >= 0) {
+            Card topCard = inDeck.get(drawPos);
+            inDeck.remove(drawPos);
+            return topCard;
+        } else {
+            System.out.println("Error: drawPos is outside deck size. You get nothing in return.");
+            return null;
+        }
     }
     //Returns and removes a card in a random position
     Card drawRand(){
@@ -100,13 +110,31 @@ class Deck {
         }
         return cardIn;
     }
+    //Looks through the deck for a card with value 10 (10, jack, queen, etc)
+    boolean check10(){
+        boolean cardIn = false;
+        for (Card currentCard: inDeck){
+            if (10 == currentCard.blackjackValue){
+                cardIn = true;
+            }
+        }
+        return cardIn;
+    }
     //Removes the "top" card without returning it like draw() does
     void discard() {
-        inDeck.remove(0);
+        try {
+            inDeck.remove(0);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Sorry chief, no can do. The deck is empty.");
+        }
     }
-    //Same but allowed to pick where the card is discarded from
+    //Same but allowes to pick where the card is discarded from
     void discard(int discardPos){
-        inDeck.remove(discardPos);
+        if (discardPos < inDeck.size() && discardPos >= 0) {
+            inDeck.remove(discardPos);
+        } else {
+           System.out.println("Error: discardPos is outside deck size. You can't discard what ain't there."); 
+        }
     }
     //Shuffles the deck
     void shuffle() {
@@ -115,6 +143,10 @@ class Deck {
     //Adds a card without taking it from somewhere else
     void add(Card newCard){
         inDeck.add(newCard);
+    }
+    //Empties the deck
+    void clear(){
+        inDeck.clear();
     }
     //splits the deck in half and returns the second deck
     Deck cut() {
@@ -130,5 +162,12 @@ class Deck {
         for (int k = 0; k < inDeck.size(); k++){
             System.out.println(inDeck.get(k).cardName);
         }
+    }
+    //Combines two decks, deleting the old one
+    void merge(Deck newDeck){
+        for (Card currentCard: newDeck.inDeck){
+            inDeck.add(currentCard);
+        }
+        newDeck.inDeck.clear();
     }
 }
