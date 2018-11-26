@@ -128,7 +128,7 @@ class Deck {
             System.out.println("Sorry chief, no can do. The deck is empty.");
         }
     }
-    //Same but allowed to pick where the card is discarded from
+    //Same but allowes to pick where the card is discarded from
     void discard(int discardPos){
         if (discardPos < inDeck.size() && discardPos >= 0) {
             inDeck.remove(discardPos);

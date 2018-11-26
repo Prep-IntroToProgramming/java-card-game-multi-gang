@@ -162,7 +162,7 @@ public class Blackjack {
             money -= bet; //Takes the bet out of your hand
             gambling = true;
         }
-        else if (money <= 0){
+        else if (money <= 0 && answer.toLowerCase().contains("y")){
             System.out.println("Sorry, you don't have enough money to gamble");
         }
         else {
