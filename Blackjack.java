@@ -8,6 +8,8 @@ public class Blackjack {
     public int bet = 0;
     public boolean gambling = false;
 
+    public boolean doubledDown = false;
+
     Deck mainDeck = new Deck(true);
     Deck playerHand = new Deck(false);
     Deck dealerHand = new Deck(false);
@@ -67,7 +69,7 @@ public class Blackjack {
             }
         }
         //For every ace decides if it should be 11 or 1 and increases value by that
-        for (int i = 0; i < aces; i++){
+        for (byte i = 0; i < aces; i++){
             if (value < 11){
                 value += 11;
             }
@@ -77,9 +79,28 @@ public class Blackjack {
         }
         return value;
     }
-    //Draws a card to the specified deck
-    void hit(Deck currentDeck){
-        currentDeck.add(mainDeck.draw());
+    //Draws a card to the player's hand
+    void hit(){
+        playerHand.add(mainDeck.draw());
+        System.out.println("After hitting, you have:");
+        playerHand.printComponents();
+        if (value(playerHand) > 21){
+            System.out.println("You busted!");
+            lose();
+        }
+    }
+    //Allows player to double their bet and draw only one card
+    void doubleDown(){
+        if (money < bet){ //Ensures the user has enough to double down
+            System.out.println("You don't have enough money to double down");
+        }
+        else{
+            playerHand.add(mainDeck.draw());
+            money = money - bet;
+            bet = bet * 2;
+            doubledDown = true; //Used to make sure they can't do anything else
+        }
+
     }
     //For debugging/testing
     void printHands(){
@@ -97,6 +118,8 @@ public class Blackjack {
         if (gambling) {
             System.out.print("You made " + bet + " dollars. You now have " + money + " dollars.");
         }
+        //Resets double down, if it changed at all
+        doubledDown = false;
     }
     //Ends game when user loses
     void lose(){
@@ -106,6 +129,8 @@ public class Blackjack {
         if (gambling) {
             System.out.print("You lost " + bet + " dollars. You now have " + money + " dollars.");
         }
+        //Resets double down, if it changed at all
+        doubledDown = false;
     }
     //Asks the user if they want to bet and if so how much
     void askBet(){
@@ -136,6 +161,9 @@ public class Blackjack {
             bet = currentBet; //Assigns the value to the public var
             money -= bet; //Takes the bet out of your hand
             gambling = true;
+        }
+        else if (money <= 0){
+            System.out.println("Sorry, you don't have enough money to gamble");
         }
         else {
             gambling = false;
