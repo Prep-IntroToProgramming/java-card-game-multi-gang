@@ -10,10 +10,67 @@ public class Blackjack {
 
     public boolean doubledDown = false;
 
-    Deck mainDeck = new Deck(true);
+    public static Deck mainDeck = new Deck(true);
     Deck playerHand = new Deck(false);
-    Deck dealerHand = new Deck(false);
+    public static Deck dealerHand = new Deck(false);
     Blackjack(){
+    }
+    //Checks to see if someone has blackjack
+    /*boolean checkBlackjack(Deck currentDeck){
+        if (currentDeck.check10() && currentDeck.checkRank(1)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }*/
+    //Ends game when user wins
+    void win(){
+        System.out.println("You win!");
+        gameOver = true;
+        money = bet*2 + money;
+        //informs the user what they won
+        if (gambling) {
+            System.out.print("You made " + bet + " dollars. You now have " + money + " dollars.");
+        }
+        //Resets double down, if it changed at all
+        doubledDown = false;
+    }
+    //Ends game when user loses
+    void lose(){
+        System.out.println("You lose...");
+        gameOver = true;
+        //informs the user what they lost
+        if (gambling) {
+            System.out.print("You lost " + bet + " dollars. You now have " + money + " dollars.");
+        }
+        //Resets double down, if it changed at all
+        doubledDown = false;
+    }
+    //Calculates the value of the user's hand
+    int value(Deck currentDeck){
+        int value = 0;
+        int aces = 0;
+        for (Card currentCard: currentDeck.inDeck){
+            //Allows to calculate how much the aces should be at the end
+            if (currentCard.blackjackValue == 1){
+                aces++;
+            }
+            value += currentCard.blackjackValue;
+        }
+        //For every ace decides if it should be 11 or 1 and increases value by that
+        /*for (byte i = 0; i < aces; i++){
+            if (value < 11){
+                value += 11;
+            }
+            else{
+                value++;
+            }
+        }*/
+        if (value <= 11 && aces > 0) {
+            value += 10;
+        }
+        return value;
     }
     //Deals out the cards at the start of a game
     void deal(){
@@ -32,14 +89,14 @@ public class Blackjack {
         playerHand.add(mainDeck.draw());
         playerHand.add(mainDeck.draw());
         //Looks to see if dealer has blackjack before player does
-        if (checkBlackjack(dealerHand)){
+        if (value(dealerHand) == 21){
             System.out.println("The dealer has:");
             dealerHand.printComponents();
             System.out.println("He got blackjack");
             lose();
         }
         //Sees if player has blackjack
-        else if (checkBlackjack(playerHand)){
+        else if (value(playerHand) == 21){
             System.out.println("The player has:");
             dealerHand.printComponents();
             System.out.println("You got blackjack!");
@@ -54,30 +111,6 @@ public class Blackjack {
         else {
             return false;
         }
-    }
-    //Calculates the value of the user's hand
-    int value(Deck currentDeck){
-        int value = 0;
-        byte aces = 0;
-        for (Card currentCard: currentDeck.inDeck){
-            //Allows to calculate how much the aces should be at the end
-            if (currentCard.blackjackValue == 1){
-                aces++;
-            }
-            else { 
-                value += currentCard.blackjackValue;
-            }
-        }
-        //For every ace decides if it should be 11 or 1 and increases value by that
-        for (byte i = 0; i < aces; i++){
-            if (value < 11){
-                value += 11;
-            }
-            else{
-                value++;
-            }
-        }
-        return value;
     }
     //Draws a card to the player's hand
     void hit(){
@@ -109,29 +142,7 @@ public class Blackjack {
         System.out.println("The player has:");
         playerHand.printComponents();
     }
-    //Ends game when user wins
-    void win(){
-        System.out.println("You win!");
-        gameOver = true;
-        money = bet*2 + money;
-        //informs the user what they won
-        if (gambling) {
-            System.out.print("You made " + bet + " dollars. You now have " + money + " dollars.");
-        }
-        //Resets double down, if it changed at all
-        doubledDown = false;
-    }
-    //Ends game when user loses
-    void lose(){
-        System.out.println("You lose...");
-        gameOver = true;
-        //informs the user what they lost
-        if (gambling) {
-            System.out.print("You lost " + bet + " dollars. You now have " + money + " dollars.");
-        }
-        //Resets double down, if it changed at all
-        doubledDown = false;
-    }
+    
     //Asks the user if they want to bet and if so how much
     void askBet(){
         //First determines if user wants to play with cash
