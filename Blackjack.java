@@ -58,7 +58,7 @@ public class Blackjack {
     //Calculates the value of the user's hand
     int value(Deck currentDeck){
         int value = 0;
-        int aces = 0;
+        byte aces = 0;
         for (Card currentCard: currentDeck.inDeck){
             //Allows to calculate how much the aces should be at the end
             if (currentCard.blackjackValue == 1){
