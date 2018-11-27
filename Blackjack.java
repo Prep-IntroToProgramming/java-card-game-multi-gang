@@ -15,15 +15,6 @@ public class Blackjack {
     Deck dealerHand = new Deck(false);
     Blackjack(){
     }
-    //Checks to see if someone has blackjack
-    /*boolean checkBlackjack(Deck currentDeck){
-        if (currentDeck.check10() && currentDeck.checkRank(1)){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }*/
     //Ends game when user wins
     void win(){
         System.out.println("You win!");
@@ -58,15 +49,6 @@ public class Blackjack {
             }
             value += currentCard.blackjackValue;
         }
-        //For every ace decides if it should be 11 or 1 and increases value by that
-        /*for (byte i = 0; i < aces; i++){
-            if (value < 11){
-                value += 11;
-            }
-            else{
-                value++;
-            }
-        }*/
         if (value <= 11 && aces > 0) {
             value += 10;
         }
