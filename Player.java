@@ -6,11 +6,11 @@ public class Player {
 
     public static boolean gambling = false;
     public boolean doubledDown = false;
-    public int money = 50;
+    public static boolean splitted = false;
+    public static int money = 50;
     public int bet = 0;
 
     Player(){
-        money = 50;
     }
 
     void printHand(){
@@ -31,7 +31,7 @@ public class Player {
             lose();
         }
     }
-    
+
     //Allows player to double their bet and draw only one card
     void doubleDown(){
         if (gambling){
@@ -51,9 +51,33 @@ public class Player {
             System.out.println("Since you're not betting, this act has literally no benefits as opposed to hitting");
         }
     }
-    
+    //Lets the player split their deck in two and essentially function as 2 players
     void split(){
-        
+        //Ensures they have enough money to split
+        if ((gambling && money >= bet) || (gambling == false)){
+            money = money - bet;
+            //Creates new player object that's controlled by the user
+            Player p2 = new Player();
+            p2.hand = hand.cut(); //Takes the current deck and splits it
+            //Adds a single card to both hands
+            hand.add(Blackjack.mainDeck.draw());
+            p2.hand.add(Blackjack.mainDeck.draw());
+            System.out.println("In your first deck:");
+            printHand();
+            System.out.println("In your second deck:");
+            p2.printHand();
+            //Used to stop double-splitting and as a flag to stop the dealer
+            //reveal until after both decks are done
+            splitted = true;
+            p2.bet = bet;
+            System.out.println("Let's start with your first hand");
+            playersTurn();
+            System.out.println("Okay, now for the second hand.");
+            p2.playersTurn();
+        }
+        else {
+            System.out.println("You don't have enough money to split");
+        }
     }
 
     int value(){
@@ -135,12 +159,6 @@ public class Player {
     }
 
     void playersTurn(){
-        if (Blackjack.dealerBlackjack){
-            lose();
-        }
-        //If no one has blackjack, game goes as normal
-        else {
 
-        }
     }
 }
