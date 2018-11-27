@@ -51,6 +51,10 @@ public class Player {
             System.out.println("Since you're not betting, this act has literally no benefits as opposed to hitting");
         }
     }
+    
+    void split(){
+        
+    }
 
     int value(){
         int value = 0;
@@ -133,13 +137,6 @@ public class Player {
     void playersTurn(){
         if (Blackjack.dealerBlackjack){
             lose();
-        }
-        //Sees if player has blackjack
-        else if (value() == 21){
-            System.out.println("The player has:");
-            hand.printComponents();
-            System.out.println("You got blackjack!");
-            win();
         }
         //If no one has blackjack, game goes as normal
         else {

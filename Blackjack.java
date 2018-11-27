@@ -29,26 +29,35 @@ public class Blackjack {
         }
         return value;
     }
-    //Deals out the cards at the start of a game
-    void deal(Player currentPlayer){
-        //empties player's hands
-        currentPlayer.hand.clear();
+    void dealDealer(){
         dealerHand.clear();
         dealerBlackjack = false;
         //Resets and shuffles the deck
         mainDeck.resetDeck();
         mainDeck.shuffle();
-        //draws and adds the cards into the hands
         dealerHand.add(mainDeck.draw());
         dealerHand.add(mainDeck.draw());
-        currentPlayer.hand.add(mainDeck.draw());
-        currentPlayer.hand.add(mainDeck.draw());
         //Looks to see if dealer has blackjack before player does
         if (dealerValue() == 21){
             System.out.println("The dealer has:");
             dealerHand.printComponents();
             System.out.println("He got blackjack");
             dealerBlackjack = true;
+        }
+    }
+    //Deals out the cards to a player start of a game
+    void deal(Player currentPlayer){
+        //empties player's hands
+        currentPlayer.hand.clear();
+        //draws and adds the cards into the hands
+        currentPlayer.hand.add(mainDeck.draw());
+        currentPlayer.hand.add(mainDeck.draw());
+        //Looks to see if player has blackjack
+        if (currentPlayer.value() == 21){
+            System.out.println("The player has:");
+            dealerHand.printComponents();
+            System.out.println("You have blackjack");
+            currentPlayer.win();
         }
     }
     //Does the dealer's turn
