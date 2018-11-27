@@ -13,7 +13,7 @@ public class Player {
         money = 50;
     }
 
-    void showHand(){
+    void printHand(){
         System.out.println("You have:");
         hand.printComponents();
     }
@@ -23,17 +23,32 @@ public class Player {
     }
 
     void hit(){
-        if (doubledDown){
-            System.out.println("No can do, you doubled down.");
+        hand.add(Blackjack.mainDeck.draw());
+        System.out.println("After hitting, you have:");
+        hand.printComponents();
+        if (value() > 21){
+            System.out.println("You busted!");
+            lose();
         }
-        else {
-            hand.add(Blackjack.mainDeck.draw());
-            System.out.println("After hitting, you have:");
-            hand.printComponents();
-            if (value() > 21){
-                System.out.println("You busted!");
-                lose();
+    }
+    
+    //Allows player to double their bet and draw only one card
+    void doubleDown(){
+        if (gambling){
+            if (money < bet){ //Ensures the user has enough to double down
+                System.out.println("You don't have enough money to double down");
             }
+            else{
+                money = money - bet;
+                bet = bet * 2;
+                System.out.println("Doubling your bet to " + bet + " credits");
+                doubledDown = true; //Used to make sure they can't do anything else
+                hit();
+            }
+        }
+        //Error statment, ideally this won't show up at all
+        else {
+            System.out.println("Since you're not betting, this act has literally no benefits as opposed to hitting");
         }
     }
 
@@ -59,7 +74,7 @@ public class Player {
         Blackjack.gameOver = true;
         //informs the user what they lost
         if (gambling) {
-            System.out.print("You lost " + bet + " dollars. You now have " + money + " dollars.");
+            System.out.println("You lost " + bet + " dollars. You now have " + money + " dollars.");
         }
         //Resets double down, if it changed at all
         doubledDown = false;
@@ -71,7 +86,7 @@ public class Player {
         money = bet*2 + money;
         //informs the user what they won
         if (gambling) {
-            System.out.print("You made " + bet + " dollars. You now have " + money + " dollars.");
+            System.out.println("You made " + bet + " dollars. You now have " + money + " dollars.");
         }
         //Resets double down, if it changed at all
         doubledDown = false;
@@ -111,23 +126,10 @@ public class Player {
         }
         else {
             gambling = false;
-            System.out.print("Cool.");
+            System.out.println("Cool, no betting here.");
         }
     }
-    //Allows player to double their bet and draw only one card
-    void doubleDown(){
-        if (money < bet){ //Ensures the user has enough to double down
-            System.out.println("You don't have enough money to double down");
-        }
-        else{
-            hit();
-            money = money - bet;
-            bet = bet * 2;
-            doubledDown = true; //Used to make sure they can't do anything else
-        }
 
-    }
-    
     void playersTurn(){
         if (Blackjack.dealerBlackjack){
             lose();
@@ -141,7 +143,7 @@ public class Player {
         }
         //If no one has blackjack, game goes as normal
         else {
-            
+
         }
     }
 }

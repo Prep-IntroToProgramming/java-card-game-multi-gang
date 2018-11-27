@@ -9,7 +9,7 @@ public class Blackjack {
     public static Deck mainDeck = new Deck(true);
     public static Deck dealerHand = new Deck(false);
     Blackjack(){
-        Player p1 = new Player();
+        
     }
 
     //Calculates the value of the dealer's hand
@@ -51,15 +51,6 @@ public class Blackjack {
             dealerBlackjack = true;
         }
     }
-    //Checks to see if someone has blackjack
-    boolean checkBlackjack(Deck currentDeck){
-        if (currentDeck.check10() && currentDeck.checkRank(1)){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
     //Does the dealer's turn
     void dealersTurn(){
     }
@@ -68,6 +59,7 @@ public class Blackjack {
     void printDealerHand(){
         System.out.println("The dealer has:");
         dealerHand.printComponents();
+        
     }
 
 }
