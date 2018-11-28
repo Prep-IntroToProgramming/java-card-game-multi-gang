@@ -158,11 +158,40 @@ public class Player {
 
     public void playersTurn(){
         boolean onTurn = true;
-        
+
         System.out.println(username + ", your turn.");
         printHand();
         while (onTurn) {
-            
+            String choice;
+            boolean choiceMade = false;
+
+            System.out.println("Right now, you can: hit, stay");
+            if (!splitted) {
+                System.out.print(", split");
+            }
+            if (!doubledDown && gambling) {
+                System.out.print(", double down");
+            }
+
+            Scanner input = new Scanner(System.in);
+            while (!choiceMade) {
+                choiceMade = true;
+                choice = input.nextLine();
+                if (choice.equalsIgnoreCase("hit")) {
+                    hit();
+                } else if (choice.equalsIgnoreCase("stay")) {
+                    onTurn = false;
+                } else if (!splitted && choice.equalsIgnoreCase("split")) {
+                    split();
+                } else if ((!doubledDown && gambling) && choice.equalsIgnoreCase("double down")) {
+                    doubleDown();
+                    onTurn = false;
+                } else {
+                    choiceMade = false;
+                    System.out.println("Please enter one of the listed commands.");
+                    input.nextLine();
+                }
+            }
         }
     }
 }
