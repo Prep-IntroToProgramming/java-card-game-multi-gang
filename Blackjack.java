@@ -2,16 +2,32 @@ import java.util.*;
 
 public class Blackjack {
 
-    public static boolean gameOver = false;
+    public ArrayList<Player> gamers = new ArrayList<Player>();
 
     public static boolean dealerBlackjack = false;
 
     public static Deck mainDeck = new Deck(true);
     public static Deck dealerHand = new Deck(false);
     Blackjack(){
+        int playerCount;
+        System.out.println("How many gamers do we have today?");
+        Scanner userInput = new Scanner(System.in);
+        while (!userInput.hasNextInt()) {
+            System.out.println("Please enter a valid # of players.");
+            userInput.nextLine();
+        }
+        playerCount = userInput.nextInt();
+        System.out.println("Great! " + playerCount + " gamers are playing.");
         
+        for (int i = 0; i < playerCount; i++) {
+            gamers.add(new Player());
+            gamers.get(i).username = "Player " + Integer.toString(i + 1); 
+        }
     }
 
+    public static void main(String[] args) {
+        
+    }
     //Calculates the value of the dealer's hand
     int dealerValue(){
         int value = 0;
@@ -62,6 +78,9 @@ public class Blackjack {
     }
     //Does the dealer's turn
     void dealersTurn(){
+            while (dealerValue() < 17) {
+                dealerHand.add(mainDeck.draw());
+            }
     }
 
     //prints out every card the dealer currently has

@@ -57,23 +57,23 @@ public class Player {
         if (((gambling && money >= bet) || (gambling == false)) && hand.inDeck.get(0).rankValue == hand.inDeck.get(1).rankValue){
             money = money - bet;
             //Creates new player object that's controlled by the user
-            Player p2 = new Player();
-            p2.hand = hand.cut(); //Takes the current deck and splits it
+            Player pSplit = new Player();
+            pSplit.hand = hand.cut(); //Takes the current deck and splits it
             //Adds a single card to both hands
             hand.add(Blackjack.mainDeck.draw());
-            p2.hand.add(Blackjack.mainDeck.draw());
+            pSplit.hand.add(Blackjack.mainDeck.draw());
             System.out.println("In your first deck:");
             printHand();
             System.out.println("In your second deck:");
-            p2.printHand();
+            pSplit.printHand();
             //Used to stop double-splitting and as a flag to stop the dealer
             //reveal until after both decks are done
             splitted = true;
-            p2.bet = bet;
+            pSplit.bet = bet;
             System.out.println("Let's start with your first hand");
             playersTurn();
             System.out.println("Okay, now for the second hand.");
-            p2.playersTurn();
+            pSplit.playersTurn();
         }
         else {
             System.out.println("You can't split in this case.");
@@ -99,7 +99,6 @@ public class Player {
     //Ends game when user loses
     void lose(){
         System.out.println("You lose...");
-        Blackjack.gameOver = true;
         //informs the user what they lost
         if (gambling) {
             System.out.println("You lost " + bet + " dollars. You now have " + money + " dollars.");
@@ -110,7 +109,6 @@ public class Player {
     //ends game when user wins
     void win(){
         System.out.println("You win!");
-        Blackjack.gameOver = true;
         money = bet*2 + money;
         //informs the user what they won
         if (gambling) {
@@ -158,7 +156,13 @@ public class Player {
         }
     }
 
-    void playersTurn(){
-
+    public void playersTurn(){
+        boolean onTurn = true;
+        
+        System.out.println(username + ", your turn.");
+        printHand();
+        while (onTurn) {
+            
+        }
     }
 }
