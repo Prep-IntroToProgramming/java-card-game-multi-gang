@@ -62,4 +62,10 @@ public class BlackjackTest {
         //p1.win();
         System.out.println("You have " + p1.money + "$");
     }
+    public static void turnTest(){
+        Blackjack b1 = new Blackjack();
+        Player p1 = new Player();
+        
+        p1.playersTurn();
+    }
 }

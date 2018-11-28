@@ -3,7 +3,8 @@ import java.util.*;
 public class Player {
     Deck hand = new Deck(false);
     String username = "Player";
-
+    
+    public boolean onTurn = true;
     public boolean gambling = false;
     public boolean doubledDown = false;
     public boolean splitted = false;
@@ -105,6 +106,7 @@ public class Player {
         }
         //Resets double down, if it changed at all
         doubledDown = false;
+        onTurn = false;
     }
     //ends game when user wins
     void win(){
@@ -116,6 +118,7 @@ public class Player {
         }
         //Resets double down, if it changed at all
         doubledDown = false;
+        onTurn = false;
     }
     //Asks the user if they want to bet and if so how much
     void askBet(){
@@ -157,22 +160,22 @@ public class Player {
     }
 
     public void playersTurn(){
-        boolean onTurn = true;
-
         System.out.println(username + ", your turn.");
         printHand();
+        int move = 0;
         while (onTurn) {
+            move ++;
             String choice;
             boolean choiceMade = false;
 
-            System.out.println("Right now, you can: hit, stay");
-            if (!splitted) {
+            System.out.print("Right now, you can: hit, stay");
+            if (!splitted && move == 1) {
                 System.out.print(", split");
             }
-            if (!doubledDown && gambling) {
+            if (!doubledDown && gambling && move == 1) {
                 System.out.print(", double down");
             }
-
+            System.out.println("");
             Scanner input = new Scanner(System.in);
             while (!choiceMade) {
                 choiceMade = true;
@@ -181,9 +184,10 @@ public class Player {
                     hit();
                 } else if (choice.equalsIgnoreCase("stay")) {
                     onTurn = false;
-                } else if (!splitted && choice.equalsIgnoreCase("split")) {
+                } else if (!splitted && choice.equalsIgnoreCase("split") && move == 1) {
                     split();
-                } else if ((!doubledDown && gambling) && choice.equalsIgnoreCase("double down")) {
+                    onTurn = false;
+                } else if ((!doubledDown && gambling) && choice.equalsIgnoreCase("double down") && move==1) {
                     doubleDown();
                     onTurn = false;
                 } else {
