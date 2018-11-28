@@ -187,7 +187,11 @@ public class Player {
                 } else if (!splitted && choice.equalsIgnoreCase("split") && move == 1) {
                     split();
                     onTurn = false;
+
                 } else if ((!doubledDown && gambling) && choice.equalsIgnoreCase("double down") && move==1) {
+
+                } else if ((!doubledDown && gambling) && choice.equalsIgnoreCase("double down")) {
+
                     doubleDown();
                     onTurn = false;
                 } else {
