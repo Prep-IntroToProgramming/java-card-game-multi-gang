@@ -183,6 +183,7 @@ public class Player {
                     onTurn = false;
                 } else if (!splitted && choice.equalsIgnoreCase("split")) {
                     split();
+                    onTurn = false;
                 } else if ((!doubledDown && gambling) && choice.equalsIgnoreCase("double down")) {
                     doubleDown();
                     onTurn = false;
