@@ -120,6 +120,18 @@ public class Player {
         doubledDown = false;
         onTurn = false;
     }
+    //Ends game when user ties
+    void push(){
+        System.out.println("You tied.");
+        money = bet + money;
+        //informs the user what they won
+        if (gambling) {
+            System.out.println("Your money stays the same at " + money + " credits");
+        }
+        //Resets double down, if it changed at all
+        doubledDown = false;
+        onTurn = false;
+    }
     //Asks the user if they want to bet and if so how much
     void askBet(){
         //First determines if user wants to play with cash

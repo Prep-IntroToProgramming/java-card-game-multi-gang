@@ -17,8 +17,16 @@ public class Blackjack {
             userInput.nextLine();
         }
         playerCount = userInput.nextInt();
+        while (playerCount < 1 || playerCount > 5){
+            System.out.println("Please enter a valid # of players");
+            while (!userInput.hasNextInt()) {
+                System.out.println("It would help if it was a number");
+                userInput.nextLine();
+            }
+            playerCount = userInput.nextInt();
+        }
         System.out.println("Great! " + playerCount + " gamers are playing.");
-        
+
         for (int i = 0; i < playerCount; i++) {
             gamers.add(new Player());
             gamers.get(i).username = "Player " + Integer.toString(i + 1); 
@@ -26,7 +34,7 @@ public class Blackjack {
     }
 
     public static void main(String[] args) {
-        
+
     }
     //Calculates the value of the dealer's hand
     int dealerValue(){
@@ -45,6 +53,7 @@ public class Blackjack {
         }
         return value;
     }
+
     void dealDealer(){
         dealerHand.clear();
         dealerBlackjack = false;
@@ -78,16 +87,40 @@ public class Blackjack {
     }
     //Does the dealer's turn
     void dealersTurn(){
-            while (dealerValue() < 17) {
-                dealerHand.add(mainDeck.draw());
-            }
+        while (dealerValue() < 17) {
+            dealerHand.add(mainDeck.draw());
+        }
     }
 
     //prints out every card the dealer currently has
     void printDealerHand(){
         System.out.println("The dealer has: " + dealerValue());
         dealerHand.printComponents();
-        
+
+    }
+
+    void checkResults(){
+        for (Player currentPlayer: gamers){
+            //Excludes players who already busted out from judgement
+            if (currentPlayer.value() > 21){
+            }
+            //If dealer busted or they got more than dealer they win
+            else if ((currentPlayer.value() > dealerValue()) || dealerValue() > 21){
+                currentPlayer.win();
+            }
+            //If they got less than dealer they lose
+            else if (currentPlayer.value() < dealerValue()){
+                currentPlayer.lose();
+            }
+            //If they get the same as the dealer they tie
+            else if (currentPlayer.value() == dealerValue()){
+                currentPlayer.push();
+            }
+            //Generic error statement
+            else{
+                System.out.println("I don't quite know how this happened.");
+            }
+        }
     }
 
 }
