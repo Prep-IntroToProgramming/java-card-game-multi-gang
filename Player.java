@@ -3,7 +3,7 @@ import java.util.*;
 public class Player {
     Deck hand = new Deck(false);
     String username = "Player";
-    
+
     public boolean onTurn = true;
     public boolean gambling = false;
     public boolean doubledDown = false;
@@ -54,7 +54,7 @@ public class Player {
     }
     //Lets the player split their deck in two and essentially function as 2 players
     void split(){
-        //Ensures they have enough money to split
+        //Ensures they have enough money to split and they're allowed to
         if (((gambling && money >= bet) || (gambling == false)) && hand.inDeck.get(0).rankValue == hand.inDeck.get(1).rankValue){
             money = money - bet;
             //Creates new player object that's controlled by the user
@@ -169,10 +169,10 @@ public class Player {
             boolean choiceMade = false;
 
             System.out.print("Right now, you can: hit, stay");
-            if (!splitted && move == 1) {
+            if (!splitted && move == 1 && bet <= money && hand.inDeck.get(0).rankValue == hand.inDeck.get(1).rankValue) {
                 System.out.print(", split");
             }
-            if (!doubledDown && gambling && move == 1) {
+            if (!doubledDown && gambling && move == 1 && bet <= money) {
                 System.out.print(", double down");
             }
             System.out.println("");
@@ -184,20 +184,15 @@ public class Player {
                     hit();
                 } else if (choice.equalsIgnoreCase("stay")) {
                     onTurn = false;
-                } else if (!splitted && choice.equalsIgnoreCase("split") && move == 1) {
+                } else if (!splitted && choice.equalsIgnoreCase("split") && move == 1 && hand.inDeck.get(0).rankValue == hand.inDeck.get(1).rankValue) {
                     split();
                     onTurn = false;
-
-                } else if ((!doubledDown && gambling) && choice.equalsIgnoreCase("double down") && move==1) {
-
-                } else if ((!doubledDown && gambling) && choice.equalsIgnoreCase("double down")) {
-
+                } else if ((!doubledDown && gambling) && bet<= money && choice.equalsIgnoreCase("double down")) {
                     doubleDown();
                     onTurn = false;
                 } else {
                     choiceMade = false;
                     System.out.println("Please enter one of the listed commands.");
-                    input.nextLine();
                 }
             }
         }
