@@ -62,4 +62,16 @@ public class BlackjackTest {
         //p1.win();
         System.out.println("You have " + p1.money + "$");
     }
+    public static void turnTest(){
+        Blackjack b1 = new Blackjack();
+        Player p1 = new Player();
+        p1.askBet();
+        //Tests generic situation
+        //b1.deal(p1);
+        //Tests Split and it's functionalities
+        p1.hand.add(new Card(Card.ACE, Card.SPADES));
+        p1.hand.add(new Card(Card.ACE, Card.CLUBS));
+        p1.playersTurn();
+        System.out.println("That's all folks");
+    }
 }
