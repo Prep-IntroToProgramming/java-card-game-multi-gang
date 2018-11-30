@@ -9,7 +9,8 @@ public class Player {
     public boolean splitted = false;
     public int money = 50;
     public int bet = 0;
-
+    boolean onTurn = true;
+    
     Player(){
     }
 
@@ -157,15 +158,13 @@ public class Player {
     }
 
     public void playersTurn(){
-        boolean onTurn = true;
-
         System.out.println(username + ", your turn.");
         printHand();
         while (onTurn) {
             String choice;
             boolean choiceMade = false;
 
-            System.out.println("Right now, you can: hit, stay");
+            System.out.print("Right now, you can: hit, stay");
             if (!splitted) {
                 System.out.print(", split");
             }
