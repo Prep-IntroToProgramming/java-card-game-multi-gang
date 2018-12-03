@@ -13,7 +13,7 @@ public class Player {
 
     Player(){
     }
-
+    //Shows what the player has
     void printHand(){
         System.out.println("You have: " + value()); //includes sum for ez reference
         hand.printComponents();
@@ -22,7 +22,7 @@ public class Player {
     void addCard(Card c){
         hand.add(c);
     }
-    //Allows for resetting all hte game-specific vars at the end
+    //Allows for resetting all the game-specific vars at the end
     void reset(){
         onTurn = true;
         gambling = false;
@@ -31,7 +31,7 @@ public class Player {
         hasBlackjack = false;
         hand.clear();
     }
-
+    //ALEts player draw a card
     void hit(){
         hand.add(Blackjack.mainDeck.draw());
         System.out.println("After hitting, you have: " + value());
@@ -61,6 +61,8 @@ public class Player {
             System.out.println("Since you're not betting, this act has literally no benefits as opposed to hitting");
         }
     }
+
+    //Had to remove the split function, difficulty in making it function
 
     /*
     //Lets the player split their deck in two and essentially function as 2 players
@@ -94,9 +96,10 @@ public class Player {
     }
      */
 
+    //calculates and returns the value of the player's hand
     int value(){
         int value = 0;
-        int aces = 0;
+        byte aces = 0;
         for (Card currentCard: hand.inDeck){
             //Allows to calculate how much the aces should be at the end
             if (currentCard.blackjackValue == 1){
@@ -129,7 +132,7 @@ public class Player {
     }
     //Ends game when user ties
     void push(){
-        System.out.println("You tied.");
+        System.out.println(username + " tied.");
         money = bet + money;
         //informs the user what they won
         if (gambling) {
@@ -179,6 +182,7 @@ public class Player {
         System.out.println(username + ", your turn.");
         printHand();
         int move = 0;
+        //Doesn't go through the turn if the player already won
         if (hasBlackjack){
             System.out.println("You have: " + value());
             hand.printComponents();
@@ -197,13 +201,15 @@ public class Player {
                 System.out.print(", split");
                 }
                  */
+                //ensures the user has a reason to double down before letting them
                 if (!doubledDown && gambling && move == 1 && bet <= money) {
                     System.out.print(", double down");
                 }
                 System.out.println("");
                 Scanner input = new Scanner(System.in);
                 while (!choiceMade) {
-                    choiceMade = true;
+                    //Makes a pseudo until loop, won't go again unless there's an issue
+                    choiceMade = true; 
                     choice = input.nextLine();
                     if (choice.equalsIgnoreCase("hit")) {
                         hit();
@@ -217,7 +223,7 @@ public class Player {
                     } else if ((!doubledDown && gambling) && bet<= money && choice.equalsIgnoreCase("double down")) {
                         doubleDown();
                         onTurn = false;
-                    } else {
+                    } else { //Incorrect user input, repeats the loop
                         choiceMade = false;
                         System.out.println("Please enter one of the listed commands.");
                     }
