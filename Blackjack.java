@@ -120,7 +120,8 @@ public class Blackjack {
             else{
                 System.out.println("I don't quite know how this happened.");
             }
-
+            
+            currentPlayer.reset();
         }
     }
 }

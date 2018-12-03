@@ -10,7 +10,6 @@ public class Player {
     public boolean hasBlackjack = false;
     public int money = 50;
     public int bet = 0;
-    
 
     Player(){
     }
@@ -22,6 +21,15 @@ public class Player {
 
     void addCard(Card c){
         hand.add(c);
+    }
+    //Allows for resetting all hte game-specific vars at the end
+    void reset(){
+        onTurn = true;
+        gambling = false;
+        doubledDown = false;
+        splitted = false;
+        hasBlackjack = false;
+        hand.clear();
     }
 
     void hit(){
@@ -53,37 +61,38 @@ public class Player {
             System.out.println("Since you're not betting, this act has literally no benefits as opposed to hitting");
         }
     }
+
     /*
     //Lets the player split their deck in two and essentially function as 2 players
     void split(){
-        //Ensures they have enough money to split and they're allowed to
-        if (((gambling && money >= bet) || (gambling == false)) && hand.inDeck.get(0).rankValue == hand.inDeck.get(1).rankValue){
-            money = money - bet;
-            //Creates new player object that's controlled by the user
-            Player pSplit = new Player();
-            pSplit.hand = hand.cut(); //Takes the current deck and splits it
-            //Adds a single card to both hands
-            hand.add(Blackjack.mainDeck.draw());
-            pSplit.hand.add(Blackjack.mainDeck.draw());
-            System.out.println("In your first deck:");
-            printHand();
-            System.out.println("In your second deck:");
-            pSplit.printHand();
-            //Used to stop double-splitting and as a flag to stop the dealer
-            //reveal until after both decks are done
-            splitted = true;
-            //pSplit.splitted = true;
-            pSplit.bet = bet;
-            System.out.println("Let's start with your first hand");
-            playersTurn();
-            System.out.println("Okay, now for the second hand.");
-            pSplit.playersTurn();
-        }
-        else {
-            System.out.println("You can't split in this case.");
-        }
+    //Ensures they have enough money to split and they're allowed to
+    if (((gambling && money >= bet) || (gambling == false)) && hand.inDeck.get(0).rankValue == hand.inDeck.get(1).rankValue){
+    money = money - bet;
+    //Creates new player object that's controlled by the user
+    Player pSplit = new Player();
+    pSplit.hand = hand.cut(); //Takes the current deck and splits it
+    //Adds a single card to both hands
+    hand.add(Blackjack.mainDeck.draw());
+    pSplit.hand.add(Blackjack.mainDeck.draw());
+    System.out.println("In your first deck:");
+    printHand();
+    System.out.println("In your second deck:");
+    pSplit.printHand();
+    //Used to stop double-splitting and as a flag to stop the dealer
+    //reveal until after both decks are done
+    splitted = true;
+    //pSplit.splitted = true;
+    pSplit.bet = bet;
+    System.out.println("Let's start with your first hand");
+    playersTurn();
+    System.out.println("Okay, now for the second hand.");
+    pSplit.playersTurn();
     }
-    */
+    else {
+    System.out.println("You can't split in this case.");
+    }
+    }
+     */
 
     int value(){
         int value = 0;
@@ -108,9 +117,6 @@ public class Player {
         if (gambling) {
             System.out.println(username + " lost " + bet + " dollars. You now have " + money + " dollars.");
         }
-        //Resets double down, if it changed at all
-        doubledDown = false;
-        onTurn = false;
     }
     //ends game when user wins
     void win(){
@@ -120,9 +126,6 @@ public class Player {
         if (gambling) {
             System.out.println(username + " made " + bet + " dollars. They now have " + money + " dollars.");
         }
-        //Resets double down, if it changed at all
-        doubledDown = false;
-        onTurn = false;
     }
     //Ends game when user ties
     void push(){
@@ -132,9 +135,6 @@ public class Player {
         if (gambling) {
             System.out.println(username + " money stays the same at " + money + " credits");
         }
-        //Resets double down, if it changed at all
-        doubledDown = false;
-        onTurn = false;
     }
     //Asks the user if they want to bet and if so how much
     void askBet(){
@@ -194,9 +194,9 @@ public class Player {
                 System.out.print("Right now, you can: hit, stay");
                 /*
                 if (!splitted && move == 1 && bet <= money && hand.inDeck.get(0).rankValue == hand.inDeck.get(1).rankValue) {
-                    System.out.print(", split");
+                System.out.print(", split");
                 }
-                */
+                 */
                 if (!doubledDown && gambling && move == 1 && bet <= money) {
                     System.out.print(", double down");
                 }
@@ -209,11 +209,11 @@ public class Player {
                         hit();
                     } else if (choice.equalsIgnoreCase("stay")) {
                         onTurn = false;
-                    /*
-                    } else if (!splitted && choice.equalsIgnoreCase("split") && move == 1 && hand.inDeck.get(0).rankValue == hand.inDeck.get(1).rankValue) {
+                        /*
+                        } else if (!splitted && choice.equalsIgnoreCase("split") && move == 1 && hand.inDeck.get(0).rankValue == hand.inDeck.get(1).rankValue) {
                         split();
                         onTurn = false;
-                    */
+                         */
                     } else if ((!doubledDown && gambling) && bet<= money && choice.equalsIgnoreCase("double down")) {
                         doubleDown();
                         onTurn = false;
