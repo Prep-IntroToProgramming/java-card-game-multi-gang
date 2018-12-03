@@ -76,16 +76,16 @@ public class Blackjack {
         currentPlayer.hand.add(mainDeck.draw());
         //Looks to see if player has blackjack
         if (currentPlayer.value() == 21){
-            System.out.println("The player has: " + currentPlayer.value());
-            dealerHand.printComponents();
-            System.out.println("You have blackjack");
-            currentPlayer.win();
+            currentPlayer.hasBlackjack = true;
         }
     }
     //Does the dealer's turn
     void dealersTurn(){
+        System.out.println("The dealer currently has: " + dealerHand.inDeck.get(0).cardName + " and " + dealerHand.inDeck.get(1).cardName);
         while (dealerValue() < 17) {
-            dealerHand.add(mainDeck.draw());
+            Card currentCard = mainDeck.draw();
+            dealerHand.add(currentCard);
+            System.out.println("The dealer drew " + currentCard.cardName);
         }
     }
 
@@ -120,7 +120,8 @@ public class Blackjack {
             else{
                 System.out.println("I don't quite know how this happened.");
             }
+
         }
     }
-
 }
+
