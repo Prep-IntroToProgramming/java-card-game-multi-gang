@@ -184,8 +184,6 @@ public class Player {
         int move = 0;
         //Doesn't go through the turn if the player already won
         if (hasBlackjack){
-            System.out.println("You have: " + value());
-            hand.printComponents();
             System.out.println("You got blackjack");
             win();
         }
@@ -213,6 +211,9 @@ public class Player {
                     choice = input.nextLine();
                     if (choice.equalsIgnoreCase("hit")) {
                         hit();
+                        if (value() > 21) {
+                            onTurn = false;
+                        }
                     } else if (choice.equalsIgnoreCase("stay")) {
                         onTurn = false;
                         /*

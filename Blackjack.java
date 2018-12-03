@@ -82,11 +82,13 @@ public class Blackjack {
     }
     //Does the dealer's turn
     void dealersTurn(){
-        System.out.println("The dealer currently has: " + dealerHand.inDeck.get(0).cardName + " and " + dealerHand.inDeck.get(1).cardName);
+        System.out.println("The dealer currently has: " + dealerValue());
+        System.out.println(dealerHand.inDeck.get(0).cardName);
+        System.out.println(dealerHand.inDeck.get(1).cardName);
         while (dealerValue() < 17) {
             Card currentCard = mainDeck.draw();
             dealerHand.add(currentCard);
-            System.out.println("The dealer drew " + currentCard.cardName);
+            System.out.println("The dealer drew " + currentCard.cardName + ": " + dealerValue());
         }
     }
 
